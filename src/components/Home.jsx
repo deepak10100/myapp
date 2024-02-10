@@ -1,21 +1,24 @@
-import React,{useState} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
+import { userContext } from '../App'
 export default function Home() {
-  const onChanged=(e)=>{
- setCount(e.target.value)
-  }
-  const onAdd=(e)=>{
-    setCount(count+1)
-  }
-  const onMinus=()=>{
-    setCount(count-1)
-  }
-  const [count, setCount] = useState(0);
-  
+const [count ,setCount] =  useState(0)
+let minusHandler = ()=>{
+  setCount(count-1)
+}
+let addHandler = ()=>{
+  setCount(count+1)
+}
+useEffect(() => {
+  // Update the document title using the browser API
+  document.title = `You clicked ${count} times`;
+},[count]);
+
+
   return (
     <>
-    <input type="number" onChange={onChanged} name="" id="" value={count} />
-    <button type="submit" onClick={onMinus}>Minus</button>
-    <button type="submit" onClick={onAdd}>Add</button>
+    <input type="number" readOnly disabled  value={count}  name="" id=""/>
+    <button type="submit" onClick={minusHandler}>Minus</button>
+    <button type="submit" onClick={addHandler}>Add</button>
     </>
   )
 }
